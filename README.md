@@ -9,10 +9,15 @@ em aplicativos web utilizando essas tecnologias.
 ## Funcionalidades
 
 - Página de login com campos de nome de usuário e senha.
+- **Login Social com Firebase:**
+  - Login com Google
+  - Login com Facebook
+  - Login com GitHub
 - Página de cadastro com campos para nome completo, e-mail, senha e confirmação de senha.
 - Verificação de senha e confirmação de senha no cadastro.
 - Simulação de armazenamento de usuários em um array (não há acesso a banco de dados).
 - Página de boas-vindas após o cadastro bem-sucedido.
+- Autenticação segura com Firebase Admin SDK no backend.
 
 ## Como usar
 
@@ -29,13 +34,25 @@ cd login-node-express-bootstrap
 npm install
 ```
 
-3. Inicie o servidor:
+3. Configure o Firebase (para habilitar login social):
+
+**IMPORTANTE:** Para usar o login social, você precisa configurar o Firebase primeiro.
+
+Siga as instruções detalhadas no arquivo [FIREBASE_SETUP.md](FIREBASE_SETUP.md) para:
+- Criar um projeto no Firebase
+- Habilitar os provedores de login (Google, Facebook, GitHub)
+- Obter as credenciais do Firebase
+- Configurar o arquivo `serviceAccountKey.json`
+
+**Nota:** A aplicação funcionará mesmo sem o Firebase configurado, mas apenas o login tradicional estará disponível.
+
+4. Inicie o servidor:
 
 ```bash
 node app.js
 ```
 
-4. Abra o navegador e acesse `http://localhost:3000` para acessar a página de login.
+5. Abra o navegador e acesse `http://localhost:3000` para acessar a página de login.
 
 ## Contribuição
 

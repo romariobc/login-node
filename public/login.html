@@ -5,6 +5,28 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Login</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+  <style>
+    .social-btn {
+      margin: 5px 0;
+    }
+    .divider {
+      display: flex;
+      align-items: center;
+      text-align: center;
+      margin: 20px 0;
+    }
+    .divider::before,
+    .divider::after {
+      content: '';
+      flex: 1;
+      border-bottom: 1px solid #dee2e6;
+    }
+    .divider span {
+      padding: 0 10px;
+      color: #6c757d;
+    }
+  </style>
 </head>
 <body>
 
@@ -16,21 +38,39 @@
             Login
           </div>
           <div class="card-body">
+            <!-- Login Social -->
+            <div class="mb-3">
+              <h6 class="text-center mb-3">Login com redes sociais</h6>
+              <div class="d-grid gap-2">
+                <button type="button" class="btn btn-danger social-btn" id="googleLogin">
+                  <i class="bi bi-google"></i> Continuar com Google
+                </button>
+                <button type="button" class="btn btn-primary social-btn" id="facebookLogin">
+                  <i class="bi bi-facebook"></i> Continuar com Facebook
+                </button>
+                <button type="button" class="btn btn-dark social-btn" id="githubLogin">
+                  <i class="bi bi-github"></i> Continuar com GitHub
+                </button>
+              </div>
+            </div>
+
+            <div class="divider">
+              <span>OU</span>
+            </div>
+
+            <!-- Login Tradicional -->
             <form action="/login" method="post">
               <div class="mb-3">
                 <label for="username" class="form-label">Username</label>
-                <input type="text" class="form-control" id="username" placeholder="Enter your username">
+                <input type="text" class="form-control" id="username" name="username" placeholder="Enter your username">
               </div>
               <div class="mb-3">
                 <label for="password" class="form-label">Password</label>
-                <input type="password" class="form-control" id="password" placeholder="Enter your password">
+                <input type="password" class="form-control" id="password" name="password" placeholder="Enter your password">
               </div>
               <div class="d-grid gap-2">
                 <button type="submit" class="btn btn-primary">Login</button>
                 <a href="/cadastro.html" class="btn btn-secondary">Cadastrar agora</a>
-              </div>
-              
-              </div>
               </div>
             </form>
           </div>
@@ -40,5 +80,99 @@
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+
+  <!-- Firebase SDK -->
+  <script type="module">
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+    import { getAuth, signInWithPopup, GoogleAuthProvider, FacebookAuthProvider, GithubAuthProvider } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
+
+    // IMPORTANTE: Substitua com suas credenciais do Firebase
+    // Acesse: https://console.firebase.google.com/
+    const firebaseConfig = {
+      apiKey: "YOUR_API_KEY",
+      authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+      projectId: "YOUR_PROJECT_ID",
+      storageBucket: "YOUR_PROJECT_ID.appspot.com",
+      messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+      appId: "YOUR_APP_ID"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    // Função para autenticar com backend
+    async function authenticateWithBackend(idToken, user) {
+      try {
+        const response = await fetch('/auth/firebase', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ idToken })
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+          console.log('Usuário autenticado com sucesso!', data.user);
+          // Redirecionar para página de boas-vindas
+          window.location.href = '/welcome.html';
+        } else {
+          console.error('Erro na autenticação:', data.error);
+          alert('Erro ao autenticar: ' + data.error);
+        }
+      } catch (error) {
+        console.error('Erro ao comunicar com o backend:', error);
+        alert('Erro ao autenticar com o servidor');
+      }
+    }
+
+    // Login com Google
+    document.getElementById('googleLogin').addEventListener('click', async () => {
+      const provider = new GoogleAuthProvider();
+      try {
+        const result = await signInWithPopup(auth, provider);
+        const user = result.user;
+        const idToken = await user.getIdToken();
+        console.log('Login com Google bem-sucedido:', user);
+        await authenticateWithBackend(idToken, user);
+      } catch (error) {
+        console.error('Erro no login com Google:', error);
+        alert('Erro ao fazer login com Google: ' + error.message);
+      }
+    });
+
+    // Login com Facebook
+    document.getElementById('facebookLogin').addEventListener('click', async () => {
+      const provider = new FacebookAuthProvider();
+      try {
+        const result = await signInWithPopup(auth, provider);
+        const user = result.user;
+        const idToken = await user.getIdToken();
+        console.log('Login com Facebook bem-sucedido:', user);
+        await authenticateWithBackend(idToken, user);
+      } catch (error) {
+        console.error('Erro no login com Facebook:', error);
+        alert('Erro ao fazer login com Facebook: ' + error.message);
+      }
+    });
+
+    // Login com GitHub
+    document.getElementById('githubLogin').addEventListener('click', async () => {
+      const provider = new GithubAuthProvider();
+      try {
+        const result = await signInWithPopup(auth, provider);
+        const user = result.user;
+        const idToken = await user.getIdToken();
+        console.log('Login com GitHub bem-sucedido:', user);
+        await authenticateWithBackend(idToken, user);
+      } catch (error) {
+        console.error('Erro no login com GitHub:', error);
+        alert('Erro ao fazer login com GitHub: ' + error.message);
+      }
+    });
+  </script>
 </body>
 </html>

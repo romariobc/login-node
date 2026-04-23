@@ -1,178 +1,253 @@
 <!DOCTYPE html>
-<html lang="pt-br">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Login</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-  <style>
-    .social-btn {
-      margin: 5px 0;
-    }
-    .divider {
-      display: flex;
-      align-items: center;
-      text-align: center;
-      margin: 20px 0;
-    }
-    .divider::before,
-    .divider::after {
-      content: '';
-      flex: 1;
-      border-bottom: 1px solid #dee2e6;
-    }
-    .divider span {
-      padding: 0 10px;
-      color: #6c757d;
-    }
-  </style>
-</head>
-<body>
 
-  <div class="container mt-5">
-    <div class="row justify-content-center">
-      <div class="col-md-6">
-        <div class="card">
-          <div class="card-header">
-            Login
-          </div>
-          <div class="card-body">
-            <!-- Login Social -->
-            <div class="mb-3">
-              <h6 class="text-center mb-3">Login com redes sociais</h6>
-              <div class="d-grid gap-2">
-                <button type="button" class="btn btn-danger social-btn" id="googleLogin">
-                  <i class="bi bi-google"></i> Continuar com Google
-                </button>
-                <button type="button" class="btn btn-primary social-btn" id="facebookLogin">
-                  <i class="bi bi-facebook"></i> Continuar com Facebook
-                </button>
-                <button type="button" class="btn btn-dark social-btn" id="githubLogin">
-                  <i class="bi bi-github"></i> Continuar com GitHub
-                </button>
-              </div>
-            </div>
-
-            <div class="divider">
-              <span>OU</span>
-            </div>
-
-            <!-- Login Tradicional -->
-            <form action="/login" method="post">
-              <div class="mb-3">
-                <label for="username" class="form-label">Username</label>
-                <input type="text" class="form-control" id="username" name="username" placeholder="Enter your username">
-              </div>
-              <div class="mb-3">
-                <label for="password" class="form-label">Password</label>
-                <input type="password" class="form-control" id="password" name="password" placeholder="Enter your password">
-              </div>
-              <div class="d-grid gap-2">
-                <button type="submit" class="btn btn-primary">Login</button>
-                <a href="/cadastro.html" class="btn btn-secondary">Cadastrar agora</a>
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
-
-  <!-- Firebase SDK -->
-  <script type="module">
-    // Import the functions you need from the SDKs you need
-    import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
-    import { getAuth, signInWithPopup, GoogleAuthProvider, FacebookAuthProvider, GithubAuthProvider } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
-
-    // IMPORTANTE: Substitua com suas credenciais do Firebase
-    // Acesse: https://console.firebase.google.com/
-    const firebaseConfig = {
-      apiKey: "YOUR_API_KEY",
-      authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
-      projectId: "YOUR_PROJECT_ID",
-      storageBucket: "YOUR_PROJECT_ID.appspot.com",
-      messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-      appId: "YOUR_APP_ID"
-    };
-
-    // Initialize Firebase
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
-
-    // Função para autenticar com backend
-    async function authenticateWithBackend(idToken, user) {
-      try {
-        const response = await fetch('/auth/firebase', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Aura - Login</title>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "secondary-fixed-dim": "#7bd0ff",
+                      "on-primary-container": "#798098",
+                      "outline-variant": "#45464d",
+                      "tertiary-fixed-dim": "#bcc7de",
+                      "primary": "#bec6e0",
+                      "surface-container-highest": "#323537",
+                      "secondary": "#7bd0ff",
+                      "on-tertiary-fixed": "#111c2d",
+                      "surface-variant": "#323537",
+                      "surface-container-low": "#191c1e",
+                      "primary-fixed-dim": "#bec6e0",
+                      "on-primary-fixed": "#131b2e",
+                      "on-secondary-fixed-variant": "#004c69",
+                      "error-container": "#93000a",
+                      "secondary-container": "#00a6e0",
+                      "primary-fixed": "#dae2fd",
+                      "on-surface": "#e0e3e5",
+                      "outline": "#909097",
+                      "inverse-primary": "#565e74",
+                      "on-primary": "#283044",
+                      "tertiary-fixed": "#d8e3fb",
+                      "surface": "#101415",
+                      "tertiary": "#bcc7de",
+                      "on-secondary": "#00354a",
+                      "surface-container-high": "#272a2c",
+                      "secondary-fixed": "#c4e7ff",
+                      "surface-container-lowest": "#0b0f10",
+                      "inverse-surface": "#e0e3e5",
+                      "on-primary-fixed-variant": "#3f465c",
+                      "on-background": "#e0e3e5",
+                      "surface-container": "#1d2022",
+                      "on-secondary-container": "#00374d",
+                      "on-tertiary-container": "#768197",
+                      "inverse-on-surface": "#2d3133",
+                      "on-error": "#690005",
+                      "surface-bright": "#363a3b",
+                      "on-tertiary": "#263143",
+                      "surface-dim": "#101415",
+                      "surface-tint": "#bec6e0",
+                      "background": "#101415",
+                      "on-tertiary-fixed-variant": "#3c475a",
+                      "tertiary-container": "#0c1829",
+                      "on-error-container": "#ffdad6",
+                      "primary-container": "#0f172a",
+                      "error": "#ffb4ab",
+                      "on-secondary-fixed": "#001e2c",
+                      "on-surface-variant": "#c6c6cd"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "unit": "4px",
+                      "stack-gap": "20px",
+                      "margin-md": "32px",
+                      "margin-sm": "16px",
+                      "gutter": "24px",
+                      "container-max-width": "440px"
+              },
+              "fontFamily": {
+                      "body-md": ["Manrope"],
+                      "body-lg": ["Manrope"],
+                      "headline-lg": ["Manrope"],
+                      "headline-md": ["Manrope"],
+                      "label-md": ["Manrope"]
+              },
+              "fontSize": {
+                      "body-md": ["14px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                      "body-lg": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                      "headline-lg": ["32px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "headline-md": ["24px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                      "label-md": ["12px", {"lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "600"}]
+              }
+            },
           },
-          body: JSON.stringify({ idToken })
-        });
-
-        const data = await response.json();
-
-        if (data.success) {
-          console.log('Usuário autenticado com sucesso!', data.user);
-          // Redirecionar para página de boas-vindas
-          window.location.href = '/welcome.html';
-        } else {
-          console.error('Erro na autenticação:', data.error);
-          alert('Erro ao autenticar: ' + data.error);
         }
-      } catch (error) {
-        console.error('Erro ao comunicar com o backend:', error);
-        alert('Erro ao autenticar com o servidor');
-      }
+      </script>
+<style>
+        body {
+            background-color: #101415;
+            overflow-x: hidden;
+        }
+        .glass-card {
+            background: rgba(29, 32, 34, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 40px 100px -20px rgba(0, 0, 0, 0.5), 0 0 40px 0 rgba(123, 208, 255, 0.05);
+        }
+        .bg-glow {
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(123, 208, 255, 0.08) 0%, rgba(16, 20, 21, 0) 70%);
+            border-radius: 100%;
+            z-index: -1;
+            filter: blur(60px);
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+<style>
+    .button-text.invisible {
+        visibility: hidden;
     }
+    button:disabled {
+        cursor: not-allowed;
+        opacity: 0.8;
+    }
+</style></head>
+<body class="font-body-md text-on-surface flex flex-col min-h-screen relative selection:bg-secondary-container selection:text-white">
+<div class="bg-glow top-[-20%] left-[-10%] opacity-50"></div>
+<div class="bg-glow bottom-[-20%] right-[-10%] opacity-50"></div>
+<nav class="bg-transparent text-slate-200 dark:text-slate-100 font-manrope antialiased tracking-tight docked full-width top-0 none flat no shadows flex justify-between items-center px-12 py-8 w-full max-w-7xl mx-auto z-50">
+<div class="text-2xl font-bold tracking-tighter text-slate-100">Aura</div>
+<div class="flex items-center gap-8">
+<a class="text-slate-400 font-medium hover:text-white transition-colors duration-300 scale-105 transition-transform duration-300 ease-out" href="#">Support</a>
+</div>
+</nav>
+<main class="flex-grow flex items-center justify-center px-gutter py-8">
+<div class="w-full max-w-[440px] glass-card rounded-xl p-6 sm:p-8 flex flex-col gap-4 max-h-[90vh] overflow-y-auto">
+<div class="text-center space-y-2">
+<h1 class="font-headline-lg text-headline-lg text-on-surface">Welcome to Aura</h1>
+<p class="font-body-md text-body-md text-on-primary-container">Secure access to your ethereal workspace</p>
+</div>
+<form class="flex flex-col gap-4 mt-2" action="/login" method="post">
+<div class="space-y-2">
+<label class="font-label-md text-label-md text-on-surface-variant ml-1">USERNAME</label>
+<div class="relative group">
+<input name="username" class="w-full bg-surface-container-lowest border border-outline-variant rounded-lg px-4 py-3 text-body-md text-on-surface placeholder:text-outline-variant focus:outline-none focus:border-secondary transition-all duration-300 ease-out focus:ring-4 focus:ring-secondary/10" placeholder="Username" type="text" required />
+</div>
+</div>
+<div class="space-y-2">
+<label class="font-label-md text-label-md text-on-surface-variant ml-1">PASSWORD</label>
+<div class="relative group">
+<input name="password" class="w-full bg-surface-container-lowest border border-outline-variant rounded-lg px-4 py-3 text-body-md text-on-surface placeholder:text-outline-variant focus:outline-none focus:border-secondary transition-all duration-300 ease-out focus:ring-4 focus:ring-secondary/10" placeholder="••••••••" type="password" required />
+</div>
+</div>
+<button type="submit" class="w-full bg-secondary-container text-white font-headline-md text-body-lg py-3 rounded-lg hover:bg-secondary-fixed-dim hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 ease-out shadow-lg shadow-secondary-container/20 mt-2 relative">
+<span class="button-text">Login</span>
+</button>
+<div class="text-center mt-2">
+<a href="/cadastro.html" class="text-secondary hover:text-white transition-colors text-sm">Need an account? Register now</a>
+</div>
+</form>
+<div class="relative flex items-center gap-4 py-1">
+<div class="flex-grow h-px bg-outline-variant"></div>
+<span class="font-label-md text-label-md text-outline">OR</span>
+<div class="flex-grow h-px bg-outline-variant"></div>
+</div>
+<button id="googleLogin" type="button" class="w-full bg-surface-container-high border border-outline-variant/30 text-on-surface font-body-lg py-3 rounded-lg hover:bg-surface-container-highest hover:border-outline-variant transition-all duration-300 ease-out flex items-center justify-center gap-3">
+<svg fill="none" height="20" viewbox="0 0 24 24" width="20" xmlns="http://www.w3.org/2000/svg">
+<path d="M23.766 12.2764C23.766 11.4607 23.6999 10.6406 23.5588 9.83807H12.24V14.4591H18.7217C18.4528 15.9494 17.5885 17.2678 16.323 18.1056V21.1039H20.19C22.4608 19.0139 23.766 15.9274 23.766 12.2764Z" fill="#4285F4"></path>
+<path d="M12.24 24.0008C15.4765 24.0008 18.2059 22.9382 20.1945 21.1039L16.3275 18.1055C15.2517 18.8375 13.8627 19.252 12.2445 19.252C9.11388 19.252 6.45946 17.1399 5.50705 14.3003H1.5166V17.3912C3.55371 21.4434 7.7029 24.0008 12.24 24.0008Z" fill="#34A853"></path>
+<path d="M5.50254 14.3003C5.25754 13.5544 5.12254 12.7634 5.12254 11.9491C5.12254 11.1348 5.25754 10.3438 5.50254 9.59787V6.50696H1.51659C0.685455 8.15127 0.213867 10.0033 0.213867 11.9491C0.213867 13.8949 0.685455 15.7469 1.51659 17.3912L5.50254 14.3003Z" fill="#FBBC05"></path>
+<path d="M12.24 4.74966C14.0074 4.72314 15.7118 5.39029 17.001 6.61111L20.2711 3.34091C18.1882 1.38573 15.2718 0.298218 12.24 0.300049C7.7029 0.300049 3.55371 2.85741 1.5166 6.90961L5.50255 10.0005C6.45046 7.16091 9.10938 5.04882 12.24 4.74966Z" fill="#EA4335"></path>
+</svg>
+<span class="text-body-lg">Continue with Google</span>
+</button>
+</div>
+</main>
+<footer class="bg-transparent text-slate-500 dark:text-slate-400 font-manrope text-sm mt-auto w-full none flat no shadows ease-out duration-300 flex justify-center gap-8 px-12 py-6 w-full z-40">
+<a class="hover:text-slate-200 transition-colors duration-300" href="#">Privacy Policy</a>
+<a class="hover:text-slate-200 transition-colors duration-300" href="#">Terms of Service</a>
+<a class="hover:text-slate-200 transition-colors duration-300" href="#">Security</a>
+</footer>
+<div class="fixed inset-0 -z-50 pointer-events-none">
+<div class="absolute inset-0 opacity-10 bg-[url('https://grainy-gradients.vercel.app/noise.svg')]"></div>
+</div>
 
-    // Login com Google
-    document.getElementById('googleLogin').addEventListener('click', async () => {
-      const provider = new GoogleAuthProvider();
-      try {
-        const result = await signInWithPopup(auth, provider);
-        const user = result.user;
-        const idToken = await user.getIdToken();
-        console.log('Login com Google bem-sucedido:', user);
-        await authenticateWithBackend(idToken, user);
-      } catch (error) {
-        console.error('Erro no login com Google:', error);
-        alert('Erro ao fazer login com Google: ' + error.message);
-      }
-    });
+<!-- Firebase SDK -->
+<script type="module">
+  // Import the functions you need from the SDKs you need
+  import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+  import { getAuth, signInWithPopup, GoogleAuthProvider } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
 
-    // Login com Facebook
-    document.getElementById('facebookLogin').addEventListener('click', async () => {
-      const provider = new FacebookAuthProvider();
-      try {
-        const result = await signInWithPopup(auth, provider);
-        const user = result.user;
-        const idToken = await user.getIdToken();
-        console.log('Login com Facebook bem-sucedido:', user);
-        await authenticateWithBackend(idToken, user);
-      } catch (error) {
-        console.error('Erro no login com Facebook:', error);
-        alert('Erro ao fazer login com Facebook: ' + error.message);
-      }
-    });
+  // Configurações do Firebase
+  const firebaseConfig = {
+    apiKey: "AIzaSyA_FWEJkeYWdeZKf3fufbyOJKxKcFdcGZ8",
+    authDomain: "appteste-b900d.firebaseapp.com",
+    projectId: "appteste-b900d",
+    storageBucket: "appteste-b900d.firebasestorage.app",
+    messagingSenderId: "615920218837",
+    appId: "1:615920218837:web:94c0531276b9315a67285c",
+    measurementId: "G-2Z72RVRE5Z"
+  };
 
-    // Login com GitHub
-    document.getElementById('githubLogin').addEventListener('click', async () => {
-      const provider = new GithubAuthProvider();
-      try {
-        const result = await signInWithPopup(auth, provider);
-        const user = result.user;
-        const idToken = await user.getIdToken();
-        console.log('Login com GitHub bem-sucedido:', user);
-        await authenticateWithBackend(idToken, user);
-      } catch (error) {
-        console.error('Erro no login com GitHub:', error);
-        alert('Erro ao fazer login com GitHub: ' + error.message);
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+
+  // Função para autenticar com backend
+  async function authenticateWithBackend(idToken, user) {
+    try {
+      const response = await fetch('/auth/firebase', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ idToken })
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        console.log('Usuário autenticado com sucesso!', data.user);
+        // Redirecionar para página de boas-vindas
+        window.location.href = '/welcome.html';
+      } else {
+        console.error('Erro na autenticação:', data.error);
+        alert('Erro ao autenticar: ' + data.error);
       }
-    });
-  </script>
-</body>
-</html>
+    } catch (error) {
+      console.error('Erro ao comunicar com o backend:', error);
+      alert('Erro ao autenticar com o servidor');
+    }
+  }
+
+  // Login com Google
+  document.getElementById('googleLogin').addEventListener('click', async () => {
+    const provider = new GoogleAuthProvider();
+    try {
+      const result = await signInWithPopup(auth, provider);
+      const user = result.user;
+      const idToken = await user.getIdToken();
+      console.log('Login com Google bem-sucedido:', user);
+      await authenticateWithBackend(idToken, user);
+    } catch (error) {
+      console.error('Erro no login com Google:', error);
+      alert('Erro ao fazer login com Google: ' + error.message);
+    }
+  });
+</script>
+
+</body></html>

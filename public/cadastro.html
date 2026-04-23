@@ -1,48 +1,181 @@
 <!DOCTYPE html>
-<html lang="pt-br">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cadastro</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
-</head>
-<body>
 
-  <div class="container mt-5">
-    <div class="row justify-content-center">
-      <div class="col-md-6">
-        <div class="card">
-          <div class="card-header">
-            Cadastro
-          </div>
-          <div class="card-body">
-            <form action="/cadastro" method="post">
-              <div class="mb-3">
-                <label for="fullName" class="form-label">Nome Completo</label>
-                <input type="text" class="form-control" id="fullName" name="fullName" placeholder="Digite seu nome completo">
-              </div>
-              <div class="mb-3">
-                <label for="email" class="form-label">Email</label>
-                <input type="email" class="form-control" id="email" name="email" placeholder="Digite seu email">
-              </div>
-              <div class="mb-3">
-                <label for="password" class="form-label">Senha</label>
-                <input type="password" class="form-control" id="password" name="password" placeholder="Digite sua senha">
-              </div>
-              <div class="mb-3">
-                <label for="confirmPassword" class="form-label">Confirmar Senha</label>
-                <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" placeholder="Confirme sua senha">
-              </div>
-              <div class="d-grid gap-2">
-                <button type="submit" class="btn btn-primary">Cadastrar</button>
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Aura - Register</title>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "secondary-fixed-dim": "#7bd0ff",
+                      "on-primary-container": "#798098",
+                      "outline-variant": "#45464d",
+                      "tertiary-fixed-dim": "#bcc7de",
+                      "primary": "#bec6e0",
+                      "surface-container-highest": "#323537",
+                      "secondary": "#7bd0ff",
+                      "on-tertiary-fixed": "#111c2d",
+                      "surface-variant": "#323537",
+                      "surface-container-low": "#191c1e",
+                      "primary-fixed-dim": "#bec6e0",
+                      "on-primary-fixed": "#131b2e",
+                      "on-secondary-fixed-variant": "#004c69",
+                      "error-container": "#93000a",
+                      "secondary-container": "#00a6e0",
+                      "primary-fixed": "#dae2fd",
+                      "on-surface": "#e0e3e5",
+                      "outline": "#909097",
+                      "inverse-primary": "#565e74",
+                      "on-primary": "#283044",
+                      "tertiary-fixed": "#d8e3fb",
+                      "surface": "#101415",
+                      "tertiary": "#bcc7de",
+                      "on-secondary": "#00354a",
+                      "surface-container-high": "#272a2c",
+                      "secondary-fixed": "#c4e7ff",
+                      "surface-container-lowest": "#0b0f10",
+                      "inverse-surface": "#e0e3e5",
+                      "on-primary-fixed-variant": "#3f465c",
+                      "on-background": "#e0e3e5",
+                      "surface-container": "#1d2022",
+                      "on-secondary-container": "#00374d",
+                      "on-tertiary-container": "#768197",
+                      "inverse-on-surface": "#2d3133",
+                      "on-error": "#690005",
+                      "surface-bright": "#363a3b",
+                      "on-tertiary": "#263143",
+                      "surface-dim": "#101415",
+                      "surface-tint": "#bec6e0",
+                      "background": "#101415",
+                      "on-tertiary-fixed-variant": "#3c475a",
+                      "tertiary-container": "#0c1829",
+                      "on-error-container": "#ffdad6",
+                      "primary-container": "#0f172a",
+                      "error": "#ffb4ab",
+                      "on-secondary-fixed": "#001e2c",
+                      "on-surface-variant": "#c6c6cd"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "unit": "4px",
+                      "stack-gap": "20px",
+                      "margin-md": "32px",
+                      "margin-sm": "16px",
+                      "gutter": "24px",
+                      "container-max-width": "440px"
+              },
+              "fontFamily": {
+                      "body-md": ["Manrope"],
+                      "body-lg": ["Manrope"],
+                      "headline-lg": ["Manrope"],
+                      "headline-md": ["Manrope"],
+                      "label-md": ["Manrope"]
+              },
+              "fontSize": {
+                      "body-md": ["14px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                      "body-lg": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                      "headline-lg": ["32px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "headline-md": ["24px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                      "label-md": ["12px", {"lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "600"}]
+              }
+            },
+          },
+        }
+      </script>
+<style>
+        body {
+            background-color: #101415;
+            overflow-x: hidden;
+        }
+        .glass-card {
+            background: rgba(29, 32, 34, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 40px 100px -20px rgba(0, 0, 0, 0.5), 0 0 40px 0 rgba(123, 208, 255, 0.05);
+        }
+        .bg-glow {
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(123, 208, 255, 0.08) 0%, rgba(16, 20, 21, 0) 70%);
+            border-radius: 100%;
+            z-index: -1;
+            filter: blur(60px);
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+<style>
+    .button-text.invisible {
+        visibility: hidden;
+    }
+    button:disabled {
+        cursor: not-allowed;
+        opacity: 0.8;
+    }
+</style></head>
+<body class="font-body-md text-on-surface flex flex-col min-h-screen relative selection:bg-secondary-container selection:text-white">
+<div class="bg-glow top-[-20%] left-[-10%] opacity-50"></div>
+<div class="bg-glow bottom-[-20%] right-[-10%] opacity-50"></div>
+<nav class="bg-transparent text-slate-200 dark:text-slate-100 font-manrope antialiased tracking-tight docked full-width top-0 none flat no shadows flex justify-between items-center px-12 py-8 w-full max-w-7xl mx-auto z-50">
+<div class="text-2xl font-bold tracking-tighter text-slate-100">Aura</div>
+<div class="flex items-center gap-8">
+<a class="text-slate-400 font-medium hover:text-white transition-colors duration-300 scale-105 transition-transform duration-300 ease-out" href="#">Support</a>
+</div>
+</nav>
+<main class="flex-grow flex items-center justify-center px-gutter py-8">
+<div class="w-full max-w-[440px] glass-card rounded-xl p-6 sm:p-8 flex flex-col gap-4 max-h-[90vh] overflow-y-auto">
+<div class="text-center space-y-2">
+<h1 class="font-headline-lg text-headline-lg text-on-surface">Create an Account</h1>
+<p class="font-body-md text-body-md text-on-primary-container">Join the ethereal workspace</p>
+</div>
+<form class="flex flex-col gap-4 mt-2" action="/cadastro" method="post">
+<div class="space-y-2">
+<label class="font-label-md text-label-md text-on-surface-variant ml-1">USERNAME</label>
+<div class="relative group">
+<input name="username" class="w-full bg-surface-container-lowest border border-outline-variant rounded-lg px-4 py-3 text-body-md text-on-surface placeholder:text-outline-variant focus:outline-none focus:border-secondary transition-all duration-300 ease-out focus:ring-4 focus:ring-secondary/10" placeholder="Choose a username" type="text" required />
+</div>
+</div>
+<div class="space-y-2">
+<label class="font-label-md text-label-md text-on-surface-variant ml-1">PASSWORD</label>
+<div class="relative group">
+<input name="password" class="w-full bg-surface-container-lowest border border-outline-variant rounded-lg px-4 py-3 text-body-md text-on-surface placeholder:text-outline-variant focus:outline-none focus:border-secondary transition-all duration-300 ease-out focus:ring-4 focus:ring-secondary/10" placeholder="••••••••" type="password" required />
+</div>
+</div>
+<div class="space-y-2">
+<label class="font-label-md text-label-md text-on-surface-variant ml-1">CONFIRM PASSWORD</label>
+<div class="relative group">
+<input name="confirmPassword" class="w-full bg-surface-container-lowest border border-outline-variant rounded-lg px-4 py-3 text-body-md text-on-surface placeholder:text-outline-variant focus:outline-none focus:border-secondary transition-all duration-300 ease-out focus:ring-4 focus:ring-secondary/10" placeholder="••••••••" type="password" required />
+</div>
+</div>
+<button type="submit" class="w-full bg-secondary-container text-white font-headline-md text-body-lg py-3 rounded-lg hover:bg-secondary-fixed-dim hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 ease-out shadow-lg shadow-secondary-container/20 mt-2 relative">
+<span class="button-text">Register</span>
+</button>
+<div class="text-center mt-2">
+<a href="/" class="text-secondary hover:text-white transition-colors text-sm">Already have an account? Login</a>
+</div>
+</form>
+</div>
+</main>
+<footer class="bg-transparent text-slate-500 dark:text-slate-400 font-manrope text-sm mt-auto w-full none flat no shadows ease-out duration-300 flex justify-center gap-8 px-12 py-6 w-full z-40">
+<a class="hover:text-slate-200 transition-colors duration-300" href="#">Privacy Policy</a>
+<a class="hover:text-slate-200 transition-colors duration-300" href="#">Terms of Service</a>
+<a class="hover:text-slate-200 transition-colors duration-300" href="#">Security</a>
+</footer>
+<div class="fixed inset-0 -z-50 pointer-events-none">
+<div class="absolute inset-0 opacity-10 bg-[url('https://grainy-gradients.vercel.app/noise.svg')]"></div>
+</div>
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
-</body>
-</html>
+</body></html>

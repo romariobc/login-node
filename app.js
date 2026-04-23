@@ -99,7 +99,13 @@ app.post('/auth/firebase', async (req, res) => {
   }
 });
 
-const port = 3000;
-app.listen(port, () => {
-  console.log(`Servidor rodando em http://localhost:${port}/`);
-});
+const port = process.env.PORT || 3001;
+
+if (require.main === module) {
+  app.listen(port, () => {
+    console.log(`Servidor rodando em http://localhost:${port}/`);
+  });
+}
+
+// Exportar o app para compatibilidade com o Vercel Serverless Functions
+module.exports = app;

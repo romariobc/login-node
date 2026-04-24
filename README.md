@@ -2,9 +2,10 @@
 
 # Projeto de Login com Node.js, Express e Bootstrap
 
-Este é um projeto de exemplo que implementa um sistema simples de login usando Node.js, Express e Bootstrap. 
-O objetivo deste projeto é fornecer um ponto de partida para estudos e aprendizado sobre autenticação básica 
-em aplicativos web utilizando essas tecnologias.
+Este projeto é um laboratório prático focado no **estudo e desenvolvimento de tecnologias web** (Node.js, Express, Bootstrap e Firebase). 
+Mais do que apenas um sistema de login, este repositório serve como um ambiente experimental para explorar a colaboração e **assistência com Inteligência Artificial e Agentes Autônomos** no ciclo de vida de desenvolvimento de software.
+
+O objetivo principal é fornecer um ponto de partida sólido não apenas para o aprendizado de autenticação básica e arquitetura web, mas também para demonstrar como ferramentas e agentes de IA podem acelerar a criação, refatoração e modernização de aplicações.
 
 ## Funcionalidades
 
@@ -145,12 +146,13 @@ Cliente → Firebase Auth (Google/Facebook/GitHub)
 - Pode ser facilmente migrado para um banco de dados real (MongoDB, PostgreSQL, etc.)
 - Para produção, recomenda-se adicionar: bcrypt para senhas, sessões, HTTPS, rate limiting
 
-## Contribuição
+## Contribuição e Uso de IA
 
-Este projeto foi criado apenas para fins de aprendizado e estudo. 
-Sinta-se à vontade para explorá-lo, fazer melhorias e contribuir com novas ideias. 
-Lembre-se de que a jornada de aprendizado em programação é cheia de desafios, mas com dedicação e perseverança, 
-você pode se tornar um programador incrível! Continue praticando e nunca desista. Você está no caminho certo! 😄💻
+Este projeto foi criado com foco em **estudo e experimentação de tecnologia**. Sinta-se à vontade para explorá-lo, fazer melhorias e testar novas abordagens arquiteturais.
+
+Encorajamos fortemente o uso deste repositório para testar a **assistência de IA e Agentes de codificação**. Você pode usá-lo como base para pedir à IA para adicionar novas features, mudar o design system, implementar testes ou refatorar o código existente. É um excelente playground para entender como humanos e agentes de IA podem colaborar na construção de software!
+
+Lembre-se de que a jornada de aprendizado em programação é contínua. Continue praticando, experimentando com novas ferramentas e explorando o futuro do desenvolvimento assistido por IA! 😄🤖💻
 
 ## Autor
 
